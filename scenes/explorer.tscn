@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/explorer.gd" id="1_explorer"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape_player"]
+radius = 0.16
+height = 0.72
+
+[node name="Explorer" type="CharacterBody3D"]
+script = ExtResource("1_explorer")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.36, 0)
+shape = SubResource("CapsuleShape_player")
+
+[node name="Visual" type="Node3D" parent="."]
+
+[node name="CameraPivot" type="Node3D" parent="."]
+position = Vector3(0, 0.72, 0)
+
+[node name="CameraSpring" type="SpringArm3D" parent="CameraPivot"]
+spring_length = 3.2
+margin = 0.16
+collision_mask = 1
+
+[node name="Camera" type="Camera3D" parent="CameraPivot/CameraSpring"]
+current = true
+fov = 72.0
+position_smoothing_enabled = true
+position_smoothing_speed = 9.0

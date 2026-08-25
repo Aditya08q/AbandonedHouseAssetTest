@@ -1,0 +1,487 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Texture2D" path="res://assets/ui/fantasy/panel-005.png" id="2_fantasy_panel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxLanInput"]
+bg_color = Color(0.02, 0.05, 0.12, 0.78)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.72, 1, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+content_margin_left = 12.0
+content_margin_right = 12.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxLanButton"]
+bg_color = Color(0.22, 0.68, 1, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.95, 1, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxAccept"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.2, 0.9, 0.45, 1)
+corner_radius_top_left = 9
+corner_radius_top_right = 9
+corner_radius_bottom_right = 9
+corner_radius_bottom_left = 9
+
+[node name="AbandonedHouseTest" type="Node3D"]
+script = ExtResource("1_main")
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="GameInfoFrame" type="NinePatchRect" parent="Interface"]
+offset_left = 12.0
+offset_top = 10.0
+offset_right = 905.0
+offset_bottom = 315.0
+texture = ExtResource("2_fantasy_panel")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate = Color(0.09, 0.12, 0.21, 0.94)
+
+[node name="LobbyFrame" type="NinePatchRect" parent="Interface"]
+offset_left = 912.0
+offset_top = 10.0
+offset_right = 1272.0
+offset_bottom = 314.0
+texture = ExtResource("2_fantasy_panel")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate = Color(0.12, 0.09, 0.18, 0.96)
+
+[node name="Title" type="Label" parent="Interface"]
+offset_left = 28.0
+offset_top = 24.0
+offset_right = 900.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(0.92, 0.9, 0.78, 1)
+theme_override_font_sizes/font_size = 24
+text = "Abandoned House — Separate Asset Test"
+
+[node name="Help" type="Label" parent="Interface"]
+offset_left = 28.0
+offset_top = 66.0
+offset_right = 1120.0
+offset_bottom = 94.0
+theme_override_colors/font_color = Color(0.84, 0.9, 0.98, 1)
+theme_override_font_sizes/font_size = 16
+text = "W A S D = move · Shift = run · Space = jump · Mouse = camera · 1 = house entrance · 2 = house interior · 3 = bathroom/laundry · Esc = release mouse"
+
+[node name="Note" type="Label" parent="Interface"]
+offset_left = 28.0
+offset_top = 98.0
+offset_right = 1120.0
+offset_bottom = 126.0
+theme_override_colors/font_color = Color(1, 0.78, 0.35, 1)
+theme_override_font_sizes/font_size = 16
+text = "Night exploration test only — it does not change the main game project."
+
+[node name="RoundInfo" type="Label" parent="Interface"]
+offset_left = 28.0
+offset_top = 134.0
+offset_right = 900.0
+offset_bottom = 164.0
+theme_override_colors/font_color = Color(0.75, 1, 0.82, 1)
+theme_override_font_sizes/font_size = 18
+text = "Prop Hunt test · Seeker attempts: 12 · Each elimination gives +2 attempts"
+
+[node name="RoleInfo" type="Label" parent="Interface"]
+offset_left = 28.0
+offset_top = 160.0
+offset_right = 1100.0
+offset_bottom = 188.0
+theme_override_colors/font_color = Color(0.95, 0.75, 0.4, 1)
+theme_override_font_sizes/font_size = 18
+text = "Lobby: 2 / 6 players · Roles pending"
+
+[node name="PropHelp" type="Label" parent="Interface"]
+offset_left = 28.0
+offset_top = 194.0
+offset_right = 1100.0
+offset_bottom = 222.0
+theme_override_colors/font_color = Color(0.92, 0.9, 0.78, 1)
+theme_override_font_sizes/font_size = 16
+text = "Solo test: G switches Hider/Seeker · Hider: E possess/release · Seeker: Q inspect · R resets"
+
+[node name="Timer" type="Label" parent="Interface"]
+offset_left = 28.0
+offset_top = 276.0
+offset_right = 900.0
+offset_bottom = 304.0
+theme_override_colors/font_color = Color(0.84, 0.9, 0.98, 1)
+theme_override_font_sizes/font_size = 18
+text = "Hiding phase: 30s · N skips to seeking for testing"
+
+[node name="Status" type="Label" parent="Interface"]
+offset_left = 28.0
+offset_top = 226.0
+offset_right = 1200.0
+offset_bottom = 268.0
+theme_override_colors/font_color = Color(0.2, 1, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.12, 0.04, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 24
+text = "Hider mode — possess a prop to test hiding."
+
+[node name="LobbyInfo" type="Label" parent="Interface"]
+offset_left = 930.0
+offset_top = 24.0
+offset_right = 1260.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "HOST LOBBY"
+
+[node name="AddRequest" type="Button" parent="Interface"]
+offset_left = 930.0
+offset_top = 155.0
+offset_right = 1080.0
+offset_bottom = 195.0
+text = "Test join request"
+
+[node name="Accept" type="Button" parent="Interface"]
+offset_left = 930.0
+offset_top = 155.0
+offset_right = 1100.0
+offset_bottom = 215.0
+text = "ACCEPT PLAYER"
+theme_override_colors/font_color = Color(0.02, 0.12, 0.06, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxAccept")
+
+[node name="Reject" type="Button" parent="Interface"]
+offset_left = 1110.0
+offset_top = 155.0
+offset_right = 1260.0
+offset_bottom = 215.0
+text = "Reject"
+
+[node name="Remove" type="Button" parent="Interface"]
+offset_left = 1090.0
+offset_top = 205.0
+offset_right = 1260.0
+offset_bottom = 245.0
+text = "Remove player"
+
+[node name="PlayerSelect" type="OptionButton" parent="Interface"]
+offset_left = 930.0
+offset_top = 205.0
+offset_right = 1080.0
+offset_bottom = 245.0
+
+[node name="RemoveConfirm" type="ConfirmationDialog" parent="Interface"]
+title = "Remove player?"
+dialog_text = "Remove this player from the lobby?"
+ok_button_text = "Remove"
+
+[node name="StartRound" type="Button" parent="Interface"]
+offset_left = 1090.0
+offset_top = 255.0
+offset_right = 1260.0
+offset_bottom = 295.0
+text = "Start round"
+
+[node name="HiderGuideButton" type="Button" parent="Interface"]
+offset_left = 366.0
+offset_top = 18.0
+offset_right = 530.0
+offset_bottom = 57.0
+theme_override_colors/font_color = Color(0.72, 1, 0.68, 1)
+theme_override_font_sizes/font_size = 18
+text = "Hider Guide"
+
+[node name="GameInfoButton" type="Button" parent="Interface"]
+offset_left = 22.0
+offset_top = 18.0
+offset_right = 176.0
+offset_bottom = 57.0
+theme_override_font_sizes/font_size = 17
+text = "Game Info"
+
+[node name="HostLobbyButton" type="Button" parent="Interface"]
+offset_left = 188.0
+offset_top = 18.0
+offset_right = 354.0
+offset_bottom = 57.0
+theme_override_font_sizes/font_size = 17
+text = "Host Lobby"
+
+[node name="LanPanel" type="NinePatchRect" parent="Interface"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -175.0
+offset_right = 320.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_fantasy_panel")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate = Color(1, 1, 1, 1)
+
+[node name="Name" type="LineEdit" parent="Interface/LanPanel"]
+offset_left = 36.0
+offset_top = 88.0
+offset_right = 604.0
+offset_bottom = 146.0
+placeholder_text = "Player name"
+max_length = 16
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_placeholder_color = Color(0.82, 0.9, 1, 0.95)
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxLanInput")
+
+[node name="Address" type="LineEdit" parent="Interface/LanPanel"]
+visible = false
+offset_left = 162.0
+offset_top = 12.0
+offset_right = 344.0
+offset_bottom = 44.0
+placeholder_text = "Host Wi-Fi IP"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_placeholder_color = Color(0.82, 0.9, 1, 0.95)
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("StyleBoxLanInput")
+
+[node name="Host" type="Button" parent="Interface/LanPanel"]
+offset_left = 36.0
+offset_top = 166.0
+offset_right = 302.0
+offset_bottom = 240.0
+text = "Host Room"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxLanButton")
+
+[node name="Join" type="Button" parent="Interface/LanPanel"]
+offset_left = 338.0
+offset_top = 166.0
+offset_right = 604.0
+offset_bottom = 240.0
+text = "Join Nearby"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 26
+theme_override_styles/normal = SubResource("StyleBoxLanButton")
+
+[node name="Info" type="Label" parent="Interface/LanPanel"]
+offset_left = 36.0
+offset_top = 260.0
+offset_right = 604.0
+offset_bottom = 330.0
+theme_override_colors/font_color = Color(0.82, 0.92, 1, 1)
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+autowrap_mode = 2
+text = "Nearby room search is automatic. Connect everyone to the same Wi-Fi or system hotspot."
+
+[node name="Heading" type="Label" parent="Interface/LanPanel"]
+offset_left = 36.0
+offset_top = 24.0
+offset_right = 604.0
+offset_bottom = 66.0
+theme_override_colors/font_color = Color(0.78, 0.92, 1, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.06, 0.14, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+text = "NEARBY MULTIPLAYER"
+
+[node name="HiderGuidePanel" type="Control" parent="Interface"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -238.0
+offset_top = -134.0
+offset_right = 238.0
+offset_bottom = 134.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Frame" type="NinePatchRect" parent="Interface/HiderGuidePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_fantasy_panel")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate = Color(0.08, 0.2, 0.14, 0.97)
+
+[node name="Heading" type="Label" parent="Interface/HiderGuidePanel"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 18.0
+offset_right = 320.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(0.73, 1, 0.66, 1)
+theme_override_font_sizes/font_size = 23
+text = "HIDER GUIDE"
+
+[node name="Instructions" type="Label" parent="Interface/HiderGuidePanel"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 65.0
+offset_right = 450.0
+offset_bottom = 220.0
+theme_override_colors/font_color = Color(0.93, 1, 0.91, 1)
+theme_override_font_sizes/font_size = 17
+text = "• Follow green arrows to movable props.\n• E: possess or release a prop.\n• Move it somewhere suspicious-looking.\n• Raise / lower it to avoid obstacles.\n• Do not let the Seeker inspect you."
+
+[node name="PrivateNote" type="Label" parent="Interface/HiderGuidePanel"]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 220.0
+offset_right = 450.0
+offset_bottom = 248.0
+theme_override_colors/font_color = Color(0.65, 0.85, 0.68, 1)
+theme_override_font_sizes/font_size = 14
+text = "Private: only Hiders can open this panel."
+
+[node name="Close" type="Button" parent="Interface/HiderGuidePanel"]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 18.0
+offset_right = 446.0
+offset_bottom = 54.0
+text = "Close"
+
+[node name="RoundBanner" type="Control" parent="Interface"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 390.0
+offset_top = 78.0
+offset_right = 890.0
+offset_bottom = 186.0
+
+[node name="Frame" type="NinePatchRect" parent="Interface/RoundBanner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_fantasy_panel")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate = Color(0.17, 0.1, 0.05, 0.96)
+
+[node name="Message" type="Label" parent="Interface/RoundBanner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.86, 0.48, 1)
+theme_override_colors/font_outline_color = Color(0.08, 0.04, 0.01, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 26
+horizontal_alignment = 1
+vertical_alignment = 1
+text = "HIDERS HIDE — 10"
+
+[node name="EndScreen" type="Control" parent="Interface"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 365.0
+offset_top = 220.0
+offset_right = 915.0
+offset_bottom = 510.0
+
+[node name="Frame" type="NinePatchRect" parent="Interface/EndScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_fantasy_panel")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+modulate = Color(0.12, 0.06, 0.17, 0.98)
+
+[node name="Heading" type="Label" parent="Interface/EndScreen"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 28.0
+offset_right = 520.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(1, 0.84, 0.42, 1)
+theme_override_font_sizes/font_size = 31
+horizontal_alignment = 1
+text = "ROUND OVER"
+
+[node name="Winner" type="Label" parent="Interface/EndScreen"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 98.0
+offset_right = 520.0
+offset_bottom = 160.0
+theme_override_colors/font_color = Color(0.92, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 23
+horizontal_alignment = 1
+autowrap_mode = 2
+text = "Seeker wins"
+
+[node name="NextRound" type="Button" parent="Interface/EndScreen"]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 205.0
+offset_right = 390.0
+offset_bottom = 253.0
+theme_override_font_sizes/font_size = 20
+text = "Host: Next Round"

@@ -1,0 +1,13 @@
+# Godot-generated cache files
+.godot/
+node_modules/
+*.import
+
+# Downloaded third-party assets stay local. Download them again from CREDITS.md.
+assets/
+
+# Locally exported Android builds. Recreate these from export_presets.cfg.
+build/
+
+# macOS Finder metadata
+.DS_Store
