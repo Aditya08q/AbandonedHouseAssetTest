@@ -13,18 +13,6 @@ The project uses Godot 4, KayKit characters/animations, the Abandoned House envi
 
 ---
 
-## Current project location
-
-The active project folder is:
-
-`/Users/srivastava/Desktop/untitled folder/AbandonedHouseAssetTest`
-
-Keep this folder as the one source of truth. The generated Android test build is kept in:
-
-`build/abandoned-house-mobile.apk`
-
----
-
 ## Game design
 
 ### Camera and controls
