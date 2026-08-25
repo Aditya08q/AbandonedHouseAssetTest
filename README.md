@@ -13,6 +13,125 @@ The project uses Godot 4, KayKit characters/animations, the Abandoned House envi
 
 ---
 
+## Project architecture
+
+The project is deliberately structured so that game logic, scenes, imported assets, and
+Android exports remain separate. Only code, scene definitions, project configuration, and
+documentation are stored in GitHub.
+
+```text
+AbandonedHouseAssetTest/
+│
+├── project.godot                 # Godot project settings: Android, rendering, input, permissions
+├── export_presets.cfg            # Android export configuration; generated APK is not committed
+├── README.md                     # Full game design, development flow, test status, architecture
+├── CREDITS.md                    # Asset sources, links, licenses, and setup instructions
+├── .gitignore                    # Keeps assets, cache, imports, and builds out of GitHub
+│
+├── scenes/
+│   ├── main.tscn                 # Main playable scene: world UI, lobby, mobile HUD, round UI
+│   └── explorer.tscn             # Reusable third-person player character scene
+│
+├── scripts/
+│   ├── main.gd                   # Main game controller: map setup, UI, rounds, LAN host/client,
+│   │                              # player synchronization, props, inspection, mobile controls
+│   ├── explorer.gd               # Player controller: movement, camera, collision, animation,
+│   │                              # possession/release, remote-player state interpolation
+│   ├── round_rules.gd            # Pure game rules: 2–6 player limit, lobby lists, random roles,
+│   │                              # character selection by player slot
+│   ├── prop_hunt.gd              # Possessable-prop data/behaviour support
+│   └── phone_player.gd           # Earlier/local test controller retained for development support
+│
+├── assets/                       # Local only — ignored by GitHub
+│   ├── abandoned_house/          # Abandoned House environment, models, textures, furniture
+│   ├── kaykit_reference/         # KayKit player models and compatible animation libraries
+│   ├── audio/                    # Background music and future sound effects
+│   └── ui/                       # Kenney mobile control and fantasy UI assets
+│
+├── .godot/                       # Local Godot editor/import cache — ignored
+└── build/                        # Local exported Android APKs — ignored
+```
+
+### Scene and runtime hierarchy
+
+```text
+main.tscn / main.gd
+│
+├── World
+│   ├── Abandoned House GLB environment
+│   ├── generated collision bodies
+│   ├── lighting, fog, safety floor, and possessable-prop markers
+│   └── runtime player avatars
+│       ├── local avatar (controlled only by this device)
+│       └── remote avatars (display synchronized state only)
+│
+├── Interface
+│   ├── LAN panel: player name, Host Room, Join Nearby, connection messages
+│   ├── Host Lobby: accepted/pending players, accept/reject/remove, Start Game
+│   ├── round HUD: role, timer, attempts, round banners, end screen
+│   ├── Hider Guide and Game Info pop-ups
+│   └── Android mobile HUD: joystick, camera drag, action buttons, menu
+│
+└── Network services
+    ├── ENet game connection on UDP port 7000
+    └── local nearby-room discovery on UDP port 7001
+```
+
+### Player architecture
+
+Every player uses the reusable `explorer.tscn` scene with `explorer.gd`.
+
+- **Local player:** reads keyboard or mobile touch input, moves with physics, runs its camera,
+  plays local animation, and sends its state to the Host.
+- **Remote player:** never reads local input. It receives position, facing, animation, role, and
+  possession state from the network and displays a smooth interpolated replica.
+- **Character selection:** `round_rules.gd` defines six compatible KayKit character models:
+  Knight, Mage, Rogue, Rogue Hooded, Ranger, and Barbarian.
+- **Camera:** only the local player’s third-person camera is active on that device.
+
+This ownership separation is why a Mac and a phone can move independently while each screen
+still shows the other player moving.
+
+### Multiplayer authority architecture
+
+The game uses a **Host-authoritative local LAN model**:
+
+```text
+Android / Mac Client
+  └── sends own input-derived movement, possession requests, and inspect request
+          ↓
+Host
+  ├── approves/rejects players
+  ├── stores accepted players and names
+  ├── assigns one random Seeker and all remaining Hiders
+  ├── runs hiding countdown, seeking timer, attempt counter, capture results, and round end
+  ├── validates client actions
+  └── broadcasts the approved game state to every connected device
+          ↓
+All clients
+  └── render the synchronized state; show private Hider-only possession guidance locally
+```
+
+The Host is the only device allowed to start a round, accept/reject/remove players, assign
+roles, advance the timer, decide captures, and publish the final result. This prevents each
+phone from inventing a different version of the same round.
+
+### Data and build flow
+
+1. Third-party assets are downloaded locally into `assets/` using the paths recorded in
+   `CREDITS.md`.
+2. Godot imports models, textures, audio, and UI into `.godot/`; those cache files are
+   regenerated automatically and are not source files.
+3. `main.tscn`, `explorer.tscn`, and the GDScript files reference the documented asset folders.
+4. Godot exports an Android test APK to `build/abandoned-house-mobile.apk`.
+5. The APK is installed on a phone for testing; it is a generated binary and is not committed.
+
+To clone this project on another computer, clone the code repository first, then download the
+asset packs listed in `CREDITS.md` and place them in the documented local folders before opening
+the project in Godot.
+
+---
+
 ## Game design
 
 ### Camera and controls
